@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Remove Enrollment{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm border-danger">
+            <div class="card-header">
+                <h5 class="mb-0" style="color: var(--danger);">Confirm Remove Enrollment</h5>
+            </div>
+            <div class="card-body text-center">
+                <p class="fs-5">Remove this enrollment record?</p>
+                <p class="fw-bold">{{ object }}</p>
+                <form method="post" class="d-flex gap-2 justify-content-center">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, Remove</button>
+                    <a href="{% url 'enrollment_list' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

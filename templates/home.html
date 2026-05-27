@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block nav_dashboard %}active{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h2 class="page-title">Dashboard</h2>
+    <a href="/students/enrollments/add/" class="btn btn-primary">+ New Enrollment</a>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-label">Total Courses</div>
+            <div class="stat-value">{{ total_courses }}</div>
+            <a href="/courses/" class="stat-link">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-label">Total Students</div>
+            <div class="stat-value">{{ total_students }}</div>
+            <a href="/students/" class="stat-link">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-label">Total Enrollments</div>
+            <div class="stat-value">{{ total_enrollments }}</div>
+            <a href="/students/enrollments/" class="stat-link">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h5 class="mb-0" style="font-size:0.9rem; color: var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.06em;">Recent Enrollments</h5>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Course</th>
+                    <th>Date Enrolled</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in recent_enrollments %}
+                <tr>
+                    <td>
+                        <div style="font-weight:500;">{{ e.student.full_name }}</div>
+                        <div style="font-size:0.75rem; color:var(--subtle);">{{ e.student.student_id }}</div>
+                    </td>
+                    <td>
+                        <span class="badge bg-primary me-1">{{ e.course.code }}</span>
+                        <span style="color:var(--muted);">{{ e.course.name }}</span>
+                    </td>
+                    <td style="color:var(--muted);">{{ e.date_enrolled }}</td>
+                    <td>
+                        {% if e.status == 'active' %}
+                            <span class="badge bg-success">Active</span>
+                        {% else %}
+                            <span class="badge bg-danger">Dropped</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-5" style="color:var(--subtle);">
+                        No enrollment records yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
