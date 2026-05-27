@@ -17,6 +17,9 @@ staticfiles/
 # Environment variables
 .env
 
+# Claude Code
+.claude/
+
 # OS
 .DS_Store
 Thumbs.db
